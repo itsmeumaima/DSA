@@ -46,10 +46,13 @@ public:
 };
 int main() {
 	MedianFinder m;
-	m.addNum(1);
-	m.addNum(2);
-	cout << "The median is :" << m.findMedian() << endl;
-	m.addNum(3);
+	int num1,num2;
+	cout<<"Enter the number you want to add";
+	cin>>num1;
+	m.addNum(num1);
+	cout<<"Enter the number you want to add";
+	cin>>num2;
+	m.addNum(num2);
 	cout << "The median is :" << m.findMedian() << endl;
 	return 0;
 }
