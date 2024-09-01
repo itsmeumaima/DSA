@@ -1,15 +1,13 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
 const int CREDIT_HOUR = 3;
-
-void gpa(float arr[5][5], string name[]) {
-    float ans[5];
-    for (int k = 0; k < 5; k++) {
+void gpa(float** arr, string* name, int numStudents, int numCourses) {
+    float* ans = new float[numStudents];
+    for (int k = 0; k < numStudents; k++) {
         float total = 0;
         int gradeCount = 0;
-        for (int a = 0; a < 5; a++) {
+        for (int a = 0; a < numCourses; a++) {
             if (arr[k][a] == -1) {
                 continue;
             }
@@ -18,24 +16,39 @@ void gpa(float arr[5][5], string name[]) {
         }
         if (gradeCount > 0) {
             ans[k] = total / (gradeCount * CREDIT_HOUR);
-        } else {
-            ans[k] = 0.0; 
+        }
+        else {
+            ans[k] = 0.0;
         }
     }
-    for (int k = 0; k < 5; k++) {
+    for (int k = 0; k < numStudents; k++) {
         cout << "GPA of " << name[k] << " is: " << ans[k] << endl;
     }
+    delete[] ans;
 }
 int main() {
-    string name[] = {"Ali", "Hiba", "Asma", "Zain", "Faisal"};
-    float arr[5][5] = {
-        {3.66, 3.33, 4.0, 3.0, 2.66},
-        {3.33, 3.0, 3.66, 3.0, -1},
-        {4.0, 3.66, 2.66, -1, -1},
-        {2.66, 2.33, 4.0, -1, -1}, 
-        {3.33, 3.66, 4.0, 3.0, 3.33} 
-    };
-    gpa(arr, name);
-
+    int numStudents, numCourses;
+    cout << "Enter the number of students: ";
+    cin >> numStudents;
+    string* name = new string[numStudents];
+    cout << "Enter the number of courses: ";
+    cin >> numCourses;
+    float** arr = new float* [numStudents];
+    for (int i = 0; i < numStudents; i++) {
+        cout << "Enter the name of student " << i + 1 << ": ";
+        cin >> name[i];
+        arr[i] = new float[numCourses];
+        for (int j = 0; j < numCourses; j++) {
+            cout << "Enter GPA for course " << j + 1 << " :";
+            cin >> arr[i][j];
+        }
+        cout << endl;
+    }
+    gpa(arr, name, numStudents, numCourses);
+    for (int i = 0; i < numStudents; i++) {
+        delete[] arr[i];
+    }
+    delete[] arr;
+    delete[] name;
     return 0;
 }
