@@ -1,47 +1,44 @@
 #include <iostream>
 using namespace std;
-
-class matrix {
+class Umaima_Lab02 {
     int row;
     int col;
     int** mat;
 
 public:
-    matrix(int r, int c) : row(r), col(c) {
+    Umaima_Lab02(int r, int c) : row(r), col(c) {
         mat = new int* [row];
         for (int i = 0; i < row; i++) {
             mat[i] = new int[col];
         }
     }
-    matrix() {
-        cout << "Enter number of rows:";
+    Umaima_Lab02() {
+        cout << "Enter number of rows: ";
         cin >> row;
-        cout << "Enter number of columns:";
+        cout << "Enter number of columns: ";
         cin >> col;
         mat = new int* [row];
         for (int i = 0; i < row; i++) {
             mat[i] = new int[col];
         }
     }
-    ~matrix() {
+    ~Umaima_Lab02() {
         for (int i = 0; i < row; i++) {
             delete[] mat[i];
         }
         delete[] mat;
     }
-
     void inputData() {
         cout << "Enter data for matrix:" << endl;
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                cout << "Enter data:";
+                cout << "Enter data for element [" << i << "][" << j << "]: ";
                 cin >> mat[i][j];
             }
         }
     }
-
     void displayMatrix() const {
-        cout << "Matrix" << endl;
+        cout << "Matrix:" << endl;
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 cout << mat[i][j] << " ";
@@ -49,9 +46,8 @@ public:
             cout << endl;
         }
     }
-
-    matrix addition(const matrix& m) const {
-        matrix result(row, col);
+    Umaima_Lab02 addition(const Umaima_Lab02& m) const {
+        Umaima_Lab02 result(row, col);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 result.mat[i][j] = mat[i][j] + m.mat[i][j];
@@ -59,9 +55,8 @@ public:
         }
         return result;
     }
-
-    matrix subtraction(const matrix& m) const {
-        matrix result(row, col);
+    Umaima_Lab02 subtraction(const Umaima_Lab02& m) const {
+        Umaima_Lab02 result(row, col);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 result.mat[i][j] = mat[i][j] - m.mat[i][j];
@@ -69,13 +64,12 @@ public:
         }
         return result;
     }
-
-    matrix multiplication(const matrix& m) const {
+    Umaima_Lab02 multiplication(const Umaima_Lab02& m) const {
         if (col != m.row) {
             cout << "Matrix multiplication is not possible with given dimensions." << endl;
-            return matrix(); 
+            return Umaima_Lab02();
         }
-        matrix result(row, m.col);
+        Umaima_Lab02 result(row, m.col);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < m.col; j++) {
                 result.mat[i][j] = 0;
@@ -86,21 +80,16 @@ public:
         }
         return result;
     }
-
-    void transpose() {
-        matrix result(col, row);
+    Umaima_Lab02 transpose() const {
+        Umaima_Lab02 result(col, row);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 result.mat[j][i] = mat[i][j];
             }
         }
-        result.displayMatrix(); 
+        return result;
     }
-
-    void scalarMultiplication() {
-        int no;
-        cout << "Enter the number you want to multiply:";
-        cin >> no;
+    void scalarMultiplication(int no) {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 mat[i][j] *= no;
@@ -108,30 +97,25 @@ public:
         }
     }
 };
-
 int main() {
-    matrix m1(2, 2);
-    matrix m2(2, 2);
+    Umaima_Lab02 m1(2, 2);
+    Umaima_Lab02 m2(2, 2);
     m1.inputData();
     m2.inputData();
-
-    cout << "Addition :" << endl;
-    matrix result = m1.addition(m2);
+    cout << "Addition:" << endl;
+    Umaima_Lab02 result = m1.addition(m2);
     result.displayMatrix();
-
-    cout << "Subtraction :" << endl;
-    matrix result1 = m1.subtraction(m2);
+    cout << "Subtraction:" << endl;
+    Umaima_Lab02 result1 = m1.subtraction(m2);
     result1.displayMatrix();
-
-    cout << "Multiplication :" << endl;
-    matrix result2 = m1.multiplication(m2);
+    cout << "Multiplication:" << endl;
+    Umaima_Lab02 result2 = m1.multiplication(m2);
     result2.displayMatrix();
-
-    cout << "Transpose :" << endl;
-    m1.transpose();
-
-    cout << "Scalar Multiplication :" << endl;
-    m1.scalarMultiplication();
+    cout << "Transpose of first matrix:" << endl;
+    Umaima_Lab02 transposedMatrix = m1.transpose();
+    transposedMatrix.displayMatrix();
+    cout << "Scalar Multiplication:" << endl;
+    m1.scalarMultiplication(2);
     m1.displayMatrix();
     return 0;
 }
