@@ -1,12 +1,12 @@
 #include <iostream>
 using namespace std;
-class binarySearch {
+class Umaima_Lab02 {
 private:
     int row;
     int col;
     int** array;
 public:
-    binarySearch() {
+    Umaima_Lab02() {
         cout << "Enter number of rows: ";
         cin >> row;
         cout << "Enter number of columns: ";
@@ -75,7 +75,7 @@ public:
         }
         cout << "The target value: " << target << " is not found in the array." << endl;
     }
-    ~binarySearch() {
+    ~Umaima_Lab02() {
         for (int i = 0; i < row; i++) {
             delete[] array[i];
         }
@@ -83,7 +83,7 @@ public:
     }
 };
 int main() {
-    binarySearch b1;
+    Umaima_Lab02 b1;
     b1.inputdata();
     b1.sortArray();
     int target;
