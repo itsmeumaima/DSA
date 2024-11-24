@@ -10,6 +10,30 @@ class Linkedlist {
 	node* head;
 public:
 	Linkedlist() :head(nullptr) {};
+	void insertpos(int pos, int val) {
+	node* newnode = new node(val);
+	if (pos == 0) {
+		newnode->next = head;
+		head = newnode;
+	}
+	else {
+		int position = 0;
+		node* prev = nullptr;
+		node* curr = head;
+		while (curr != nullptr && position < pos) {
+			prev = curr;
+			curr = curr->next;
+			position++;
+		}
+		if (curr == nullptr and position < pos) {
+			prev->next = newnode;
+		}
+		else {
+			prev->next = newnode;
+			newnode->next = curr;
+		}
+	}
+}
 	void insert(int val) {
 		node* newnode = new node(val);
 		if (head == nullptr) {
